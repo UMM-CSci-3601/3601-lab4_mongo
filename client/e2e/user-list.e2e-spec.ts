@@ -159,4 +159,16 @@ describe('User list', () => {
         page.field('emailField').sendKeys('dana@awesome.com');
         page.click('exitWithoutAddingButton');
     });
+
+    it('Should show the message about age being too small if the age is less than 15'), () => {
+        page.navigateTo();
+        page.click('addNewUser');
+        page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function() {
+            page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function () {
+                page.field('ageField').sendKeys('2');
+            });
+        });
+        fixture.detectChanges();
+        expect(component.distributionSettingsForm.hasError('noCatalog')).toEqual(true);
+    }
 });

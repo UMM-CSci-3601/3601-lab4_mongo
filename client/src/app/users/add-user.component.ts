@@ -16,6 +16,8 @@ export class AddUserComponent implements OnInit{
         @Inject(MAT_DIALOG_DATA) public data: {user: User}, private fb:FormBuilder) {
     }
 
+    // not sure if this name is magical and making it be found or if I'm missing something,
+    // but this is where the red text that shows up (when there is invalid input) comes from
     add_user_validation_messages = {
         'name': [
             {type: 'required', message: 'Name is required'},
