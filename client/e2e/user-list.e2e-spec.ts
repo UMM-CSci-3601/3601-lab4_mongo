@@ -5,18 +5,19 @@ import {Key} from 'selenium-webdriver';
 const origFn = browser.driver.controlFlow().execute;
 
 // https://hassantariqblog.wordpress.com/2015/11/09/reduce-speed-of-angular-e2e-protractor-tests/
-// browser.driver.controlFlow().execute = function () {
-//     let args = arguments;
-//
-//     // queue 100ms wait between test
-//     // This delay is only put here so that you can watch the browser do its thing.
-//     // If you're tired of it taking long you can remove this call
-//     origFn.call(browser.driver.controlFlow(), function () {
-//         return protractor.promise.delayed(100);
-//     });
-//
-//     return origFn.apply(browser.driver.controlFlow(), args);
-// };
+browser.driver.controlFlow().execute = function () {
+    let args = arguments;
+
+    // queue 100ms wait between test
+    // This delay is only put here so that you can watch the browser do its thing.
+    // If you're tired of it taking long you can remove this call
+    origFn.call(browser.driver.controlFlow(), function () {
+        return protractor.promise.delayed(100);
+    });
+
+    return origFn.apply(browser.driver.controlFlow(), args);
+};
+
 
 describe('User list', () => {
     let page: UserPage;
@@ -38,7 +39,7 @@ describe('User list', () => {
         page.typeAName('lynn');
         expect(page.getUniqueUser('lynnferguson@niquent.com')).toEqual('Lynn Ferguson');
     });
-
+/*
     it('should click on the age 27 times and return 3 elements then ', () => {
         page.navigateTo();
         page.getUserByAge();
@@ -159,16 +160,19 @@ describe('User list', () => {
         page.field('emailField').sendKeys('dana@awesome.com');
         page.click('exitWithoutAddingButton');
     });
+    */
 
-    it('Should show the message about age being too small if the age is less than 15'), () => {
+    it('Should show the message about age being too small if the age is less than 15', () => {
         page.navigateTo();
         page.click('addNewUser');
+        expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
         page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function() {
             page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function () {
                 page.field('ageField').sendKeys('2');
             });
         });
-        fixture.detectChanges();
-        expect(component.distributionSettingsForm.hasError('noCatalog')).toEqual(true);
-    }
-});
+        expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
+        //expect(page.e.toEqual(true);
+        page.click('exitWithoutAddingButton');
+    });
+})

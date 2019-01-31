@@ -86,4 +86,9 @@ export class UserPage {
         return element(by.id(idOfField));
     }
 
+    button(idOfButton: string) {
+        this.highlightElement(by.id(idOfButton));
+        return element(by.id(idOfButton));
+    }
+
 }
