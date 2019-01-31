@@ -168,7 +168,9 @@ describe('User list', () => {
                 page.field('ageField').sendKeys('2');
             });
         });
-        fixture.detectChanges();
-        expect(component.distributionSettingsForm.hasError('noCatalog')).toEqual(true);
+
+        browser.detectChanges();
+        expect(browser.switchTo().alert().getText()).toBe('Age must be at least 15');
+        //expect(component.distributionSettingsForm.hasError('problem')).toEqual(true);
     }
 });
