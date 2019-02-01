@@ -45,8 +45,7 @@ export class UserPage {
         const input = element(by.id('userCompany'));
         input.click();
         input.sendKeys(company);
-        const selectButton = element(by.id('submit'));
-        selectButton.click();
+        this.click('submit');
     }
 
     getUserByAge() {
@@ -89,6 +88,11 @@ export class UserPage {
     button(idOfButton: string) {
         this.highlightElement(by.id(idOfButton));
         return element(by.id(idOfButton));
+    }
+
+    getTextFromField(idOfField: string) {
+        this.highlightElement(by.id(idOfField));
+        return element(by.id(idOfField)).getText();
     }
 
 }
