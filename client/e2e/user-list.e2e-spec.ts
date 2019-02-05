@@ -123,10 +123,22 @@ describe('User list', () => {
         page.click('addNewUser');
         expect(page.elementExistsWithCss('add-user')).toBeTruthy('There should be a modal window now');
     });
+});
 
-    it('Should allow us to put information into the fields of the add user dialog', () => {
+describe('Add User (Validation)', () => {
+    let page: UserPage;
+
+    beforeEach(() => {
+        page = new UserPage();
         page.navigateTo();
         page.click('addNewUser');
+    });
+
+    afterEach(() => {
+        page.click('exitWithoutAddingButton');
+    });
+
+    it('Should allow us to put information into the fields of the add user dialog', () => {
         expect(page.field('nameField').isPresent()).toBeTruthy('There should be a name field');
         page.field('nameField').sendKeys('Dana Jones');
         expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
@@ -136,60 +148,45 @@ describe('User list', () => {
         page.field('companyField').sendKeys('Awesome Startup, LLC');
         expect(page.field('emailField').isPresent()).toBeTruthy('There should be an email field');
         page.field('emailField').sendKeys('dana@awesome.com');
-        page.click('exitWithoutAddingButton');
     });
 
     it('Should show the validation error message about age being too small if the age is less than 15', () => {
-        page.navigateTo();
-        page.click('addNewUser');
         expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
         page.field('ageField').sendKeys('\b\b2');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         page.field('nameField').click();
         expect(page.getTextFromField('age-error')).toBe('Age must be at least 15');
-        page.click('exitWithoutAddingButton');
     });
 
     it('Should show the validation error message about age being required', () => {
-        page.navigateTo();
-        page.click('addNewUser');
         expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
         page.field('ageField').sendKeys('\b\b');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         page.field('nameField').click();
         expect(page.getTextFromField('age-error')).toBe('Age is required');
-        page.click('exitWithoutAddingButton');
     });
 
     it('Should show the validation error message about name being required', () => {
-        page.navigateTo();
-        page.click('addNewUser');
         expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be a name field');
         page.field('nameField').sendKeys('A\b');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         page.field('ageField').click();
         expect(page.getTextFromField('name-error')).toBe('Name is required');
-        page.click('exitWithoutAddingButton');
     });
 
     it('Should show the validation error message about the format of name', () => {
-        page.navigateTo();
-        page.click('addNewUser');
         expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
         page.field('nameField').sendKeys('Don@ld Jones');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
         page.field('ageField').click();
         expect(page.getTextFromField('name-error')).toBe('Name must contain only numbers and letters');
-        page.click('exitWithoutAddingButton');
     });
 
     it('Should show the validation error message about email format', () => {
-        page.navigateTo();
-        page.click('addNewUser');
         expect(element(by.id('emailField')).isPresent()).toBeTruthy('There should be an email field');
         page.field('nameField').sendKeys('Donald Jones');
         page.field('ageField').sendKeys('30');
@@ -198,7 +195,16 @@ describe('User list', () => {
         //clicking somewhere else will make the error appear
         page.field('nameField').click();
         expect(page.getTextFromField('email-error')).toBe('Email must be formatted properly');
-        page.click('exitWithoutAddingButton');
+    });
+});
+
+describe('Add Valid User', () => {
+    let page: UserPage;
+
+    beforeEach(() => {
+        page = new UserPage();
+        page.navigateTo();
+        page.click('addNewUser');
     });
 
     // When I move this test earlier, it fails. That's a problem I don't quite understand.
