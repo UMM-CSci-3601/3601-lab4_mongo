@@ -123,109 +123,107 @@ describe('User list', () => {
         page.click('addNewUser');
         expect(page.elementExistsWithCss('add-user')).toBeTruthy('There should be a modal window now');
     });
-});
 
-describe('Add User (Validation)', () => {
-    let page: UserPage;
+    describe('Add User', () => {
 
-    beforeEach(() => {
-        page = new UserPage();
-        page.navigateTo();
-        page.click('addNewUser');
-    });
+        beforeEach(() => {
+            page.navigateTo();
+            page.click('addNewUser');
+        });
 
-    afterEach(() => {
-        page.click('exitWithoutAddingButton');
-    });
+        // When I move this test earlier, it fails. That's a problem I don't quite understand.
+        it('Should actually add the user with the information we put in the fields', () => {
+            page.navigateTo();
+            page.click('addNewUser');
+            page.field('nameField').sendKeys('Tracy Kim');
+            // Need to use backspace because the default value is -1. If that changes, this will change too.
+            page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function () {
+                page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function () {
+                    page.field('ageField').sendKeys('26');
+                });
+            });
+            page.field('companyField').sendKeys('Awesome Startup, LLC');
+            page.field('emailField').sendKeys('tracy@awesome.com');
+            page.click('confirmAddUserButton');
 
-    it('Should allow us to put information into the fields of the add user dialog', () => {
-        expect(page.field('nameField').isPresent()).toBeTruthy('There should be a name field');
-        page.field('nameField').sendKeys('Dana Jones');
-        expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-        // Need to use backspace because the default value is -1. If that changes, this will change too.
-        page.field('ageField').sendKeys('\b\b24');
-        expect(page.field('companyField').isPresent()).toBeTruthy('There should be a company field');
-        page.field('companyField').sendKeys('Awesome Startup, LLC');
-        expect(page.field('emailField').isPresent()).toBeTruthy('There should be an email field');
-        page.field('emailField').sendKeys('dana@awesome.com');
-    });
+            /*
+             * This tells the browser to wait until the (new) element with ID
+             * 'tracy@awesome.com' becomes present, or until 10,000ms whichever
+             * comes first. This allows the test to wait for the server to respond,
+             * and then for the client to display this new user.
+             * http://www.protractortest.org/#/api?view=ProtractorExpectedConditions
+             */
+            const tracy_element = element(by.id('tracy@awesome.com'));
+            browser.wait(protractor.ExpectedConditions.presenceOf(tracy_element), 10000);
 
-    it('Should show the validation error message about age being too small if the age is less than 15', () => {
-        expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-        page.field('ageField').sendKeys('\b\b2');
-        expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('nameField').click();
-        expect(page.getTextFromField('age-error')).toBe('Age must be at least 15');
-    });
+            expect(page.getUniqueUser('tracy@awesome.com')).toMatch('Tracy Kim.*'); // toEqual('Tracy Kim');
+        });
 
-    it('Should show the validation error message about age being required', () => {
-        expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-        page.field('ageField').sendKeys('\b\b');
-        expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('nameField').click();
-        expect(page.getTextFromField('age-error')).toBe('Age is required');
-    });
+        describe('Add User (Validation)', () => {
 
-    it('Should show the validation error message about name being required', () => {
-        expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be a name field');
-        page.field('nameField').sendKeys('A\b');
-        expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('ageField').click();
-        expect(page.getTextFromField('name-error')).toBe('Name is required');
-    });
+            afterEach(() => {
+                page.click('exitWithoutAddingButton');
+            });
 
-    it('Should show the validation error message about the format of name', () => {
-        expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
-        page.field('nameField').sendKeys('Don@ld Jones');
-        expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('ageField').click();
-        expect(page.getTextFromField('name-error')).toBe('Name must contain only numbers and letters');
-    });
+            it('Should allow us to put information into the fields of the add user dialog', () => {
+                expect(page.field('nameField').isPresent()).toBeTruthy('There should be a name field');
+                page.field('nameField').sendKeys('Dana Jones');
+                expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
+                // Need to use backspace because the default value is -1. If that changes, this will change too.
+                page.field('ageField').sendKeys('\b\b24');
+                expect(page.field('companyField').isPresent()).toBeTruthy('There should be a company field');
+                page.field('companyField').sendKeys('Awesome Startup, LLC');
+                expect(page.field('emailField').isPresent()).toBeTruthy('There should be an email field');
+                page.field('emailField').sendKeys('dana@awesome.com');
+            });
 
-    it('Should show the validation error message about email format', () => {
-        expect(element(by.id('emailField')).isPresent()).toBeTruthy('There should be an email field');
-        page.field('nameField').sendKeys('Donald Jones');
-        page.field('ageField').sendKeys('30');
-        page.field('emailField').sendKeys('donjones.com');
-        expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('nameField').click();
-        expect(page.getTextFromField('email-error')).toBe('Email must be formatted properly');
-    });
-});
+            it('Should show the validation error message about age being too small if the age is less than 15', () => {
+                expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
+                page.field('ageField').sendKeys('\b\b2');
+                expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
+                //clicking somewhere else will make the error appear
+                page.field('nameField').click();
+                expect(page.getTextFromField('age-error')).toBe('Age must be at least 15');
+            });
 
-describe('Add Valid User', () => {
-    let page: UserPage;
+            it('Should show the validation error message about age being required', () => {
+                expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
+                page.field('ageField').sendKeys('\b\b');
+                expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
+                //clicking somewhere else will make the error appear
+                page.field('nameField').click();
+                expect(page.getTextFromField('age-error')).toBe('Age is required');
+            });
 
-    beforeEach(() => {
-        page = new UserPage();
-        page.navigateTo();
-        page.click('addNewUser');
-    });
+            it('Should show the validation error message about name being required', () => {
+                expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be a name field');
+                page.field('nameField').sendKeys('A\b');
+                expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
+                //clicking somewhere else will make the error appear
+                page.field('ageField').click();
+                expect(page.getTextFromField('name-error')).toBe('Name is required');
+            });
 
-    // When I move this test earlier, it fails. That's a problem I don't quite understand.
-    it('Should actually add the user with the information we put in the fields', () => {
-        page.navigateTo();
-        page.click('addNewUser');
-        page.field('nameField').sendKeys('Tracy Kim');
-        // Need to use backspace because the default value is -1. If that changes, this will change too.
-        page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function() {
-            page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function() {
-                page.field('ageField').sendKeys('26');
+            it('Should show the validation error message about the format of name', () => {
+                expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
+                page.field('nameField').sendKeys('Don@ld Jones');
+                expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
+                //clicking somewhere else will make the error appear
+                page.field('ageField').click();
+                expect(page.getTextFromField('name-error')).toBe('Name must contain only numbers and letters');
+            });
+
+            it('Should show the validation error message about email format', () => {
+                expect(element(by.id('emailField')).isPresent()).toBeTruthy('There should be an email field');
+                page.field('nameField').sendKeys('Donald Jones');
+                page.field('ageField').sendKeys('30');
+                page.field('emailField').sendKeys('donjones.com');
+                expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
+                //clicking somewhere else will make the error appear
+                page.field('nameField').click();
+                expect(page.getTextFromField('email-error')).toBe('Email must be formatted properly');
             });
         });
-        page.field('companyField').sendKeys('Awesome Startup, LLC');
-        page.field('emailField').sendKeys('tracy@awesome.com');
-        page.click('confirmAddUserButton');
-        // This annoying delay is necessary, otherwise it's possible that we execute the `expect`
-        // line before the add user has been fully processed and the new user is available
-        // in the list.
-        setTimeout(() => {
-            expect(page.getUniqueUser('tracy@awesome.com')).toMatch('Tracy Kim.*'); // toEqual('Tracy Kim');
-        }, 10000);
     });
 });
+
