@@ -136,12 +136,9 @@ describe('User list', () => {
             page.navigateTo();
             page.click('addNewUser');
             page.field('nameField').sendKeys('Tracy Kim');
-            // Need to use backspace because the default value is -1. If that changes, this will change too.
-            page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function () {
-                page.field('ageField').sendKeys(protractor.Key.BACK_SPACE).then(function () {
-                    page.field('ageField').sendKeys('26');
-                });
-            });
+            // Need to clear the age field because the default value is -1.
+            page.field('ageField').clear();
+            page.field('ageField').sendKeys('26');
             page.field('companyField').sendKeys('Awesome Startup, LLC');
             page.field('emailField').sendKeys('tracy@awesome.com');
             expect(page.button('confirmAddUserButton').isEnabled()).toBe(true);
@@ -170,8 +167,9 @@ describe('User list', () => {
                 expect(page.field('nameField').isPresent()).toBeTruthy('There should be a name field');
                 page.field('nameField').sendKeys('Dana Jones');
                 expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-                // Need to use backspace because the default value is -1. If that changes, this will change too.
-                page.field('ageField').sendKeys('\b\b24');
+                // Need to clear this field because the default value is -1.
+                page.field('ageField').clear();
+                page.field('ageField').sendKeys('24');
                 expect(page.field('companyField').isPresent()).toBeTruthy('There should be a company field');
                 page.field('companyField').sendKeys('Awesome Startup, LLC');
                 expect(page.field('emailField').isPresent()).toBeTruthy('There should be an email field');
@@ -180,7 +178,8 @@ describe('User list', () => {
 
             it('Should show the validation error message about age being too small if the age is less than 15', () => {
                 expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-                page.field('ageField').sendKeys('\b\b2');
+                page.field('ageField').clear();
+                page.field('ageField').sendKeys('2');
                 expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
                 //clicking somewhere else will make the error appear
                 page.field('nameField').click();
@@ -189,7 +188,7 @@ describe('User list', () => {
 
             it('Should show the validation error message about age being required', () => {
                 expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-                page.field('ageField').sendKeys('\b\b');
+                page.field('ageField').clear();
                 expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
                 //clicking somewhere else will make the error appear
                 page.field('nameField').click();
@@ -198,6 +197,9 @@ describe('User list', () => {
 
             it('Should show the validation error message about name being required', () => {
                 expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be a name field');
+                // '\b' is a backspace, so this enters an 'A' and removes it so this
+                // field is "dirty", i.e., it's seen as having changed so the validation
+                // tests are run.
                 page.field('nameField').sendKeys('A\b');
                 expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
                 //clicking somewhere else will make the error appear
