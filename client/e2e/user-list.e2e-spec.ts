@@ -216,6 +216,15 @@ describe('User list', () => {
                 expect(page.getTextFromField('name-error')).toBe('Name must contain only numbers and letters');
             });
 
+            it('Should show the validation error message about the name being taken', () => {
+                expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
+                page.field('nameField').sendKeys('abc123');
+                expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
+                //clicking somewhere else will make the error appear
+                page.field('ageField').click();
+                expect(page.getTextFromField('name-error')).toBe('Name has already been taken');
+            });
+
             it('Should show the validation error message about email format', () => {
                 expect(element(by.id('emailField')).isPresent()).toBeTruthy('There should be an email field');
                 page.field('nameField').sendKeys('Donald Jones');

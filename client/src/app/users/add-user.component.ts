@@ -24,7 +24,7 @@ export class AddUserComponent implements OnInit{
             {type: 'minlength', message: 'Name must be at least 2 characters long'},
             {type: 'maxlength', message: 'Name cannot be more than 25 characters long'},
             {type: 'pattern', message: 'Name must contain only numbers and letters'},
-            {type: 'validUsername', message: 'Name has already been taken'}
+            {type: 'existingName', message: 'Name has already been taken'}
         ],
 
         'age': [

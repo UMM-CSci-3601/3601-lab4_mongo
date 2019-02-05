@@ -6,7 +6,7 @@ is potentially helpful and contributed to the shaping of this example -->
     <h2 mat-dialog-title>New User</h2>
     <mat-dialog-content layout="column">
         <mat-form-field flex>
-            <input matInput #input id="nameField" placeholder="Name" [(ngModel)]="data.user.name" name="name" formControlName="name" required>
+            <input matInput #input id="nameField" placeholder="Name" [(ngModel)]="data.user.name" formControlName="name" required>
             <mat-error *ngFor="let validation of add_user_validation_messages.name">
                 <mat-error class="error-message" id="name-error" *ngIf="addUserForm.get('name').hasError(validation.type) && (addUserForm.get('name').dirty || addUserForm.get('name').touched)">{{validation.message}}</mat-error>
             </mat-error>
