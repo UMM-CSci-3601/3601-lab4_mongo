@@ -22,7 +22,6 @@ const ANGULAR_MODULES: any[] = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule
-
 ];
 
 const MATERIAL_MODULES: any[] = [
