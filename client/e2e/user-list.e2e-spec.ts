@@ -144,6 +144,7 @@ describe('User list', () => {
             });
             page.field('companyField').sendKeys('Awesome Startup, LLC');
             page.field('emailField').sendKeys('tracy@awesome.com');
+            expect(page.button('confirmAddUserButton').isEnabled()).toBe(true);
             page.click('confirmAddUserButton');
 
             /*
