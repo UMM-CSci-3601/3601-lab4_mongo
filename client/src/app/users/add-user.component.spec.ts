@@ -35,16 +35,11 @@ describe('Add user component', () => {
         addUserComponent = fixture.componentInstance;
     });
 
-    //it("doesn't send any data about the new user to create if the person clicks on exit", () => {
-    //    expect(mockMatDialogRef.data).toBe(null);
-    //});
-
-    //I added some import statements here that made errors go away, but it's not set how I want it. Now it
-    // just matches this example: https://stackoverflow.com/questions/39910017/angular-2-custom-validation-unit-testing
-    // this also looked helpful maybe: https://stackoverflow.com/questions/52046741/angular-testbed-query-by-css-find-the-pseudo-element
-    // and this: https://angular.io/guide/form-validation
-    // and this: https://github.com/angular/angular/blob/7.2.2/packages/forms/src/validators.ts#L136-L157
-    // maybe this?: https://angular.io/guide/testing#component-with-inputs-and-outputs
+    // Much of the code for validation was created with a lot of exploration and helpful resources including:
+    // https://stackoverflow.com/questions/39910017/angular-2-custom-validation-unit-testing
+    // https://stackoverflow.com/questions/52046741/angular-testbed-query-by-css-find-the-pseudo-element
+    // https://angular.io/guide/form-validation
+    // https://github.com/angular/angular/blob/7.2.2/packages/forms/src/validators.ts#L136-L157
     it('should not allow a name to contain a symbol'), async(() => {
             let fixture = TestBed.createComponent(AddUserComponent);
             let comp = fixture.componentInstance;
