@@ -131,7 +131,6 @@ describe('User list', () => {
             page.click('addNewUser');
         });
 
-        // When I move this test earlier, it fails. That's a problem I don't quite understand.
         it('Should actually add the user with the information we put in the fields', () => {
             page.navigateTo();
             page.click('addNewUser');
