@@ -70,7 +70,7 @@ describe('Todo list', () => {
     expect(todoList.todos.length).toBe(3);
   });
 
-  it('contains a todo ownerd \'Blanche\'', () => {
+  it('contains a todo owner \'Blanche\'', () => {
     expect(todoList.todos.some((todo: Todo) => todo.owner === 'Blanche')).toBe(true);
   });
 
@@ -96,7 +96,7 @@ describe('Todo list', () => {
 
   it('todo list filters by category', () => {
     expect(todoList.filteredTodos.length).toBe(3);
-    todoList.todoCategory = "vid";
+    todoList.todoCategory = "video";
     todoList.refreshTodos().subscribe(() => {
       expect(todoList.filteredTodos.length).toBe(1);
     });

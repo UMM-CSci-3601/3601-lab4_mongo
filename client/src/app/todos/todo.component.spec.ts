@@ -19,25 +19,25 @@ describe('Todo component', () => {
     todoListServiceStub = {
       getTodoById: (todoId: string) => Observable.of([
         {
-          _id: 'chris_id',
-          owner: 'Chris',
-          age: 25,
-          company: 'UMM',
-          email: 'chris@this.that'
+          "_id": "58895985a22c04e761776d54",
+          "owner": "Blanche",
+          "status": false,
+          "body": "In sunt ex non tempor cillum commodo amet incididunt anim qui commodo quis. Cillum non labore ex sint esse.",
+          "category": "software design"
         },
         {
-          _id: 'pat_id',
-          owner: 'Pat',
-          age: 37,
-          company: 'IBM',
-          email: 'pat@something.com'
+          "_id": "58895985c1849992336c219b",
+          "owner": "Fry",
+          "status": false,
+          "body": "Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.",
+          "category": "video games"
         },
         {
-          _id: 'jamie_id',
-          owner: 'Jamie',
-          age: 37,
-          company: 'Frogs, Inc.',
-          email: 'jamie@frogs.com'
+          "_id": "58895985ae3b752b124e7663",
+          "owner": "Fry",
+          "status": true,
+          "body": "Ullamco irure laborum magna dolor non. Anim occaecat adipisicing cillum eu magna in.",
+          "category": "homework"
         }
       ].find(todo => todo._id === todoId))
     };
@@ -56,11 +56,11 @@ describe('Todo component', () => {
     });
   }));
 
-  it('can retrieve Pat by ID', () => {
-    todoComponent.setId('pat_id');
+  it('can retrieve Fry by ID', () => {
+    todoComponent.setId('58895985c1849992336c219b');
     expect(todoComponent.todo).toBeDefined();
-    expect(todoComponent.todo.owner).toBe('Pat');
-    expect(todoComponent.todo.email).toBe('pat@something.com');
+    expect(todoComponent.todo.owner).toBe('Fry');
+    expect(todoComponent.todo.status).toBe(false);
   });
 
   it('returns undefined for Santa', () => {

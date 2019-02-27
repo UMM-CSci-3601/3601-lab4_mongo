@@ -34,7 +34,7 @@ describe('Todo list service: ', () => {
     todo.body.toLowerCase().indexOf('m') !== -1
   );
 
-  // We will need some url information from the todoListService to meaningfully test company filtering;
+  // We will need some url information from the todoListService to meaningfully test owner filtering;
   // https://stackoverflow.com/questions/35987055/how-to-write-unit-testing-for-angular-2-typescript-for-private-methods-with-ja
   let todoListService: TodoListService;
   let currentlyImpossibleToGenerateSearchTodoUrl: string;
@@ -83,34 +83,34 @@ describe('Todo list service: ', () => {
     req.flush(testTodos);
   });
 
-  it('getTodos(todoCompany) adds appropriate param string to called URL', () => {
+  it('getTodos(todoOwner) adds appropriate param string to called URL', () => {
     todoListService.getTodos('m').subscribe(
       todos => expect(todos).toEqual(mTodos)
     );
 
-    const req = httpTestingController.expectOne(todoListService.baseUrl + '?company=m&');
+    const req = httpTestingController.expectOne(todoListService.baseUrl + '?owner=m&');
     expect(req.request.method).toEqual('GET');
     req.flush(mTodos);
   });
 
-  it('filterByCompany(todoCompany) deals appropriately with a URL that already had a company', () => {
-    currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?company=f&something=k&';
+  it('filterByOwner(todoOwner) deals appropriately with a URL that already had a owner', () => {
+    currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?owner=f&something=k&';
     todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-    todoListService.filterByCompany('m');
-    expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&company=m&');
+    todoListService.filterByOwner('m');
+    expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&owner=m&');
   });
 
-  it('filterByCompany(todoCompany) deals appropriately with a URL that already had some filtering, but no company', () => {
+  it('filterByOwner(todoOwner) deals appropriately with a URL that already had some filtering, but no owner', () => {
     currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?something=k&';
     todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-    todoListService.filterByCompany('m');
-    expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&company=m&');
+    todoListService.filterByOwner('m');
+    expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&owner=m&');
   });
 
-  it('filterByCompany(todoCompany) deals appropriately with a URL has the keyword company, but nothing after the =', () => {
-    currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?company=&';
+  it('filterByOwner(todoOwner) deals appropriately with a URL has the keyword owner, but nothing after the =', () => {
+    currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?owner=&';
     todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-    todoListService.filterByCompany('');
+    todoListService.filterByOwner('');
     expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '');
   });
 
@@ -128,24 +128,24 @@ describe('Todo list service: ', () => {
   });
 
   it('adding a todo calls api/todos/new', () => {
-    const jesse_id = 'jesse_id';
+    const rupert_id = 'rupert_id';
     const newTodo: Todo = {
-      _id: '',
-      owner: 'Jesse',
-      age: 72,
-      company: 'Smithsonian',
-      email: 'jesse@stuff.com'
+      _id: '503120',
+      owner: 'Rupert',
+      status: true,
+      category: 'video games',
+      body: 'latin stuff'
     };
 
     todoListService.addNewTodo(newTodo).subscribe(
       id => {
-        expect(id).toBe(jesse_id);
+        expect(id).toBe(rupert_id);
       }
     );
 
     const expectedUrl: string = todoListService.baseUrl + '/new';
     const req = httpTestingController.expectOne(expectedUrl);
     expect(req.request.method).toEqual('POST');
-    req.flush(jesse_id);
+    req.flush(rupert_id);
   });
 });

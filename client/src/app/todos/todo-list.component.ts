@@ -73,7 +73,7 @@ export class TodoListComponent implements OnInit {
       });
     }
 
-    // Filter by age
+    // Filter by category
     if (searchCategory != null) {
       this.filteredTodos = this.filteredTodos.filter(todo => {
         return !searchCategory || todo.category.toLowerCase().indexOf(searchBody) !== -1;
