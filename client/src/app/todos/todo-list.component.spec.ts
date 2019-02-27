@@ -96,13 +96,13 @@ describe('Todo list', () => {
 
   it('todo list filters by category', () => {
     expect(todoList.filteredTodos.length).toBe(3);
-    todoList.todoCategory = "video";
+    todoList.todoCategory = "vid";
     todoList.refreshTodos().subscribe(() => {
       expect(todoList.filteredTodos.length).toBe(1);
     });
   });
 
-  it('todo list filters by owner and age', () => {
+  it('todo list filters by category and owner', () => {
     expect(todoList.filteredTodos.length).toBe(3);
     todoList.todoCategory = "vid";
     todoList.todoOwner = 'i';
