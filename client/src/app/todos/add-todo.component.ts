@@ -60,7 +60,7 @@ export class AddTodoComponent implements OnInit {
 
       body: new FormControl('body', Validators.required),
 
-      category: new FormControl('category', Validators.required())
+      category: new FormControl('category', Validators.required)
     })
 
   }

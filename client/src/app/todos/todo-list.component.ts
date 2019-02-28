@@ -95,7 +95,7 @@ export class TodoListComponent implements OnInit {
       });
     }
 
-    return this.filteredUsers;
+    return this.filteredTodos;
   }
 
   refreshTodos(): Observable<Todo[]> {

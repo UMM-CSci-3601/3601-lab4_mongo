@@ -29,8 +29,8 @@ public class TodoController {
 
     Iterator<Document> iterator = jsonTodos.iterator();
     if (iterator.hasNext()) {
-      Document user = iterator.next();
-      return user.toJson();
+      Document todo = iterator.next();
+      return todo.toJson();
     } else {
       // We didn't find the desired todo
       return null;
