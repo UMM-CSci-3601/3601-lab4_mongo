@@ -20,8 +20,9 @@ public class Server {
   public static void main(String[] args) {
 
     MongoClient mongoClient = new MongoClient();
+    MongoClient mongoClient2 = new MongoClient();
     MongoDatabase userDatabase = mongoClient.getDatabase(userDatabaseName);
-    MongoDatabase todoDatabase = mongoClient.getDatabase(todoDatabaseName);
+    MongoDatabase todoDatabase = mongoClient2.getDatabase(todoDatabaseName);
 
     UserController userController = new UserController(userDatabase);
     UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
