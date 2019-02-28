@@ -2,26 +2,26 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MatDialogRef, MAT_DIALOG_DATA, MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 
-import {AddUserComponent} from './add-user.component';
+import {AddTodoComponent} from './add-todo.component';
 import {CustomModule} from '../custom.module';
 import {By} from "@angular/platform-browser";
 import {NgForm} from "@angular/forms";
 
-describe('Add user component', () => {
+describe('Add todo component', () => {
 
-  let addUserComponent: AddUserComponent;
+  let addTodoComponent: AddTodoComponent;
   let calledClose: boolean;
   const mockMatDialogRef = {
     close() {
       calledClose = true;
     }
   };
-  let fixture: ComponentFixture<AddUserComponent>;
+  let fixture: ComponentFixture<AddTodoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CustomModule],
-      declarations: [AddUserComponent],
+      declarations: [AddTodoComponent],
       providers: [
         {provide: MatDialogRef, useValue: mockMatDialogRef},
         {provide: MAT_DIALOG_DATA, useValue: null},
@@ -33,8 +33,8 @@ describe('Add user component', () => {
 
   beforeEach(() => {
     calledClose = false;
-    fixture = TestBed.createComponent(AddUserComponent);
-    addUserComponent = fixture.componentInstance;
+    fixture = TestBed.createComponent(AddTodoComponent);
+    addTodoComponent = fixture.componentInstance;
   });
 
   // Much of the code for validation was created with a lot of exploration and helpful resources including:
@@ -42,10 +42,10 @@ describe('Add user component', () => {
   // https://stackoverflow.com/questions/52046741/angular-testbed-query-by-css-find-the-pseudo-element
   // https://angular.io/guide/form-validation
   // https://github.com/angular/angular/blob/7.2.2/packages/forms/src/validators.ts#L136-L157
-  // it('should not allow a name to contain a symbol'), async(() => {
-  //   let fixture = TestBed.createComponent(AddUserComponent);
+  // it('should not allow a owner to contain a symbol'), async(() => {
+  //   let fixture = TestBed.createComponent(AddTodoComponent);
   //   let debug = fixture.debugElement;
-  //   let input = debug.query(By.css('[name=email]'));
+  //   let input = debug.query(By.css('[owner=email]'));
   //
   //   fixture.detectChanges();
   //   fixture.whenStable().then(() => {
