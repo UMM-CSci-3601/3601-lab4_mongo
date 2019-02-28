@@ -44,8 +44,7 @@ import {TodoListService} from "./todos/todo-list.service";
   providers: [
     UserListService,
     {provide: APP_BASE_HREF, useValue: '/'},
-    {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
-
+    {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
     TodoListService,
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
