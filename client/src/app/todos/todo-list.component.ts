@@ -54,7 +54,7 @@ export class TodoListComponent implements OnInit {
       }
     });
   }
-//  todo Might have to change todo to todos in the return statements.
+
   public filterTodos(searchOwner: string, searchStatus: string, searchBody: string, searchCategory: string): Todo[] {
 
     this.filteredTodos = this.todos;
