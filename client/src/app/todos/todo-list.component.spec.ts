@@ -102,6 +102,14 @@ describe('Todo list', () => {
     });
   });
 
+  it('todo list filters by category with letter e', () => {
+    expect(todoList.filteredTodos.length).toBe(3);
+    todoList.todoCategory = "e";
+    todoList.refreshTodos().subscribe(() => {
+      expect(todoList.filteredTodos.length).toBe(3);
+    });
+  });
+
   // it('todo list filters by category and owner', () => {
   //   expect(todoList.filteredTodos.length).toBe(3);
   //   todoList.todoCategory = "vid";
