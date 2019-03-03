@@ -110,6 +110,30 @@ describe('Todo list', () => {
     });
   });
 
+  it('todo list filters by body with letter \'e\'', () => {
+    expect(todoList.filteredTodos.length).toBe(3);
+    todoList.todoBody = "e";
+    todoList.refreshTodos().subscribe(() => {
+      expect(todoList.filteredTodos.length).toBe(3);
+    });
+  });
+
+  it('todo list filters by body with word \'magna\'', () => {
+    expect(todoList.filteredTodos.length).toBe(3);
+    todoList.todoBody = "magna";
+    todoList.refreshTodos().subscribe(() => {
+      expect(todoList.filteredTodos.length).toBe(2);
+    });
+  });
+
+  it('todo list filters by body with word \'santa\'', () => {
+    expect(todoList.filteredTodos.length).toBe(3);
+    todoList.todoBody = "santa";
+    todoList.refreshTodos().subscribe(() => {
+      expect(todoList.filteredTodos.length).toBe(0);
+    });
+  });
+
   // it('todo list filters by category and owner', () => {
   //   expect(todoList.filteredTodos.length).toBe(3);
   //   todoList.todoCategory = "vid";
