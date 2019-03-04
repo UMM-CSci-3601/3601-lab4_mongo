@@ -96,7 +96,7 @@ public class TodoController {
         targetBool = true;
       }
 
-      if(targetContent.equals("")){
+      if(!targetContent.equals("incomplete")){
         targetBool = false;
       }
 

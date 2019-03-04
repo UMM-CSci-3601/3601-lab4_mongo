@@ -86,6 +86,10 @@ describe('Todo list', () => {
     expect(todoList.todos.filter((todo: Todo) => todo.status === false).length).toBe(2);
   });
 
+  it('has one todo that is complete', () => {
+    expect(todoList.todos.filter((todo:Todo) => todo.status ===true).length).toBe(1);
+  });
+
   // it('todo list filters by owner', () => {
   //   expect(todoList.filteredTodos.length).toBe(3);
   //   todoList.todoOwner = 'a';
@@ -131,6 +135,15 @@ describe('Todo list', () => {
     todoList.todoBody = "santa";
     todoList.refreshTodos().subscribe(() => {
       expect(todoList.filteredTodos.length).toBe(0);
+    });
+  });
+
+  it('todo list filters by body with word \'esse\' and with category \'vid\'', () => {
+    expect(todoList.filteredTodos.length).toBe(3);
+    todoList.todoBody = "esse";
+    todoList.todoCategory = "vid";
+    todoList.refreshTodos().subscribe(() => {
+      expect(todoList.filteredTodos.length).toBe(1);
     });
   });
 

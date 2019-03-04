@@ -23,7 +23,7 @@ export class TodoListComponent implements OnInit {
   public todoStatus: string;
   public todoBody: string;
   public todoCategory: string;
-
+  todoStatus = "incomplete";
 
 
   // The ID of the
@@ -128,5 +128,4 @@ export class TodoListComponent implements OnInit {
     this.loadService();
   }
 
-  todoStatus = "incomplete";
 }
