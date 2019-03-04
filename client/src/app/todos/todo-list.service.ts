@@ -15,9 +15,9 @@ export class TodoListService {
   constructor(private http: HttpClient) {
   }
 
-  getTodos(todoOwner?: string): Observable<Todo[]> {
+  getTodos(todoOwner?: string, todoStatus? : string): Observable<Todo[]> {
     this.filterByOwner(todoOwner);
-    // this.filterByStatus(todoStatus);
+    this.filterByStatus(todoStatus);
     return this.http.get<Todo[]>(this.todoUrl);
   }
 

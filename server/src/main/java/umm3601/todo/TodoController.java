@@ -19,6 +19,8 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public class TodoController {
 
+  boolean targetBool;
+
   private final MongoCollection<Document> todoCollection;
 
   /**
@@ -77,16 +79,26 @@ public class TodoController {
 
 //    if (queryParams.containsKey("status")) {
 //      String targetContent = (queryParams.get("status")[0]);
-//
-//      if(targetContent.equals("incomplete")){
-//        targetContent == false;
-//      }
-//
 //      Document contentRegQuery = new Document();
 //      contentRegQuery.append("$regex", targetContent);
 //      contentRegQuery.append("$options", "i");
 //      filterDoc = filterDoc.append("status", contentRegQuery);
 //    }
+
+    if (queryParams.containsKey("status")) {
+      String targetContent = (queryParams.get("status")[0]);
+
+      if(targetContent.equals("incomplete")){
+        targetBool = false;
+      }
+
+      if(targetContent.equals("complete")){
+        targetBool = true;
+      }
+
+
+      filterDoc = filterDoc.append("status", targetBool);
+    }
 
     //FindIterable comes from mongo, Document comes from Gson
     FindIterable<Document> matchingTodos = todoCollection.find(filterDoc);

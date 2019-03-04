@@ -20,9 +20,11 @@ export class TodoListComponent implements OnInit {
   // These are the target values used in searching.
   // We should rename them to make that clearer.
   public todoOwner: string;
-  public todoStatus: boolean;
+  public todoStatus: string;
   public todoBody: string;
   public todoCategory: string;
+
+  todoStatus = "incomplete";
 
   // The ID of the
   private highlightedID: string = '';
@@ -108,8 +110,10 @@ export class TodoListComponent implements OnInit {
   }
 
   loadService(): void {
-    this.todoListService.getTodos(this.todoOwner).subscribe(
+    this.todoListService.getTodos(this.todoOwner, this.todoStatus).subscribe(
       todos => {
+        // console.log(this.todoStatus);
+        // console.log(this.todoOwner);
         this.todos = todos;
         this.filteredTodos = this.todos;
       },
