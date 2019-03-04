@@ -24,7 +24,7 @@ export class TodoListComponent implements OnInit {
   public todoBody: string;
   public todoCategory: string;
 
-  todoStatus = "incomplete";
+
 
   // The ID of the
   private highlightedID: string = '';
@@ -127,4 +127,6 @@ export class TodoListComponent implements OnInit {
     this.refreshTodos();
     this.loadService();
   }
+
+  todoStatus = "incomplete";
 }

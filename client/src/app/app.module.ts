@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 
-
 import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -22,12 +21,15 @@ import {TodoComponent} from "./todos/todo.component";
 import {AddTodoComponent} from "./todos/add-todo.component";
 import {TodoListService} from "./todos/todo-list.service";
 
+import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     Routing,
     CustomModule,
+    MatRadioModule
   ],
   declarations: [
     AppComponent,
