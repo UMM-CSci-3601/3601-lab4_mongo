@@ -318,9 +318,9 @@
   dependencies:
     "@types/jasmine" "*"
 
-"@types/node@~11.12.1":
-  version "11.12.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.12.1.tgz#d90123f6c61fdf2f7cddd286ddae891586dd3488"
+"@types/node@~11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.0.tgz#b0df8d6ef9b5001b2be3a94d909ce3c29a80f9e1"
 
 "@types/q@^0.0.32":
   version "0.0.32"
