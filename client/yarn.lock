@@ -179,11 +179,11 @@
     tslib "^1.7.1"
     xhr2 "^0.1.4"
 
-"@angular/router@^5.0.0":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-5.2.5.tgz#f8f220d5fb85fc10d60fe606b0f2a64732265142"
+"@angular/router@^7.2.11":
+  version "7.2.11"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-7.2.11.tgz#a134dd4f06cdd2ccbf798688aedd4a2d5fb584ca"
   dependencies:
-    tslib "^1.7.1"
+    tslib "^1.9.0"
 
 "@babel/code-frame@^7.0.0":
   version "7.0.0"
@@ -6298,7 +6298,7 @@ tsickle@^0.26.0:
     source-map "^0.5.6"
     source-map-support "^0.4.2"
 
-tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1:
+tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 
