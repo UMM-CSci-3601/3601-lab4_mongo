@@ -8,7 +8,6 @@ import umm3601.user.UserController;
 import umm3601.user.UserRequestHandler;
 
 import static spark.Spark.*;
-import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Server {
   private static final String userDatabaseName = "dev";
@@ -24,7 +23,6 @@ public class Server {
 
     //Configure Spark
     port(serverPort);
-    enableDebugScreen();
 
     // Specify where assets like images will be "stored"
     staticFiles.location("/public");
