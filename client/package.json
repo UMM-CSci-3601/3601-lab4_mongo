@@ -26,7 +26,7 @@
     "@angular/platform-server": "^8.0.3",
     "@angular/router": "^8.0.3",
     "@types/core-js": "^2.5.0",
-    "core-js": "^2.6.5",
+    "core-js": "^3.3.5",
     "hammerjs": "^2.0.8",
     "package.json": "^2.0.1",
     "rxjs": "^6.5.2",
